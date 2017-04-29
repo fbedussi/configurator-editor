@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     const { tree, questions, answers} = this.props;
     return (
-      <div className="App">
+      <div className="app">
         <Node 
           key={tree.id}
           currentNode = {tree}

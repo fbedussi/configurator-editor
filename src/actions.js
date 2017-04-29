@@ -19,3 +19,7 @@ export function init() {
         };
     };
 }
+
+export function toggleOpen(nodeId) {
+    return { type: 'TOGGLE_OPEN', nodeId };
+}

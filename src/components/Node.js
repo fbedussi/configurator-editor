@@ -1,53 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import NodeRow from './NodeRow';
+import NodeContainer from './NodeContainer';
 
 const Node = ({currentNode, answers, questions}) => {
-    var node;
-    var nextNode0 = currentNode[0];
-    var nextNode1 = currentNode[1];
-    
+    var populatedNode;
+
     if (currentNode.questionId) {
-        node = questions.filter(question => question.id === currentNode.questionId)[0];
+        populatedNode = questions.filter(question => question.id === currentNode.questionId)[0];
     }
 
     if (currentNode.answerId) {
-        node = answers.filter(answer => answer.id === currentNode.answerId)[0];
+        populatedNode = answers.filter(answer => answer.id === currentNode.answerId)[0];
     }
 
     return <div className="node">
     <NodeRow
         rowName="title"
         label="Title"
-        text={node.title}
+        text={populatedNode.title}
     />
 
     <NodeRow
         rowName="subtitle"
         label="Subtitle"
-        text={node.subtitle}
+        text={populatedNode.subtitle}
     />
 
     <NodeRow
         rowName="text"
         label="Text"
-        text={node.text}
+        text={populatedNode.text}
     />
 
-    {node.images && node.images.map(imagePath => <NodeRow rowName="image" label="Image" text={imagePath} />)}
+    {populatedNode.images && populatedNode.images.map((imagePath, i) => <NodeRow key={`image_${i}`}rowName="image" label="Image" text={imagePath} />)}
 
-    {nextNode0 && <Node 
-        key={nextNode0.id}
-        currentNode={nextNode0}
-        answers={answers}
-        questions={questions}
-    />}
-    {nextNode1 && <Node 
-        key={nextNode1.id}
-        currentNode={nextNode1}
-        answers={answers}
-        questions={questions}
-    />}
+    {populatedNode.options && populatedNode.options.map((option, i) => {
+        const nextNode = currentNode[i];
+        
+        return nextNode ? <NodeContainer 
+            key={nextNode.id}
+            label={option}
+            currentNode={nextNode}
+            answers={answers}
+            questions={questions}
+        /> : null;
+    })}
 </div>;
 };
 
