@@ -20,6 +20,24 @@ test('ensureUniqueIds', () => {
     });
 
     expect(ensureSequentialIds({
+        id: 0,
+        0: {
+            id: 1
+        },
+        1: {
+            id: 2
+        }
+    })).toEqual({
+        id: 0,
+        0: {
+            id: 1
+        },
+        1: {
+            id: 2
+        }
+    });
+
+    expect(ensureSequentialIds({
         id: 1,
         pippo: {
             pluto: 1
@@ -36,4 +54,9 @@ test('ensureUniqueIds', () => {
             id: 1
         }
   });
+
+  expect(ensureSequentialIds({})).toEqual({});
+
+  expect(ensureSequentialIds(null)).toEqual(null);
+  
 });

@@ -1,4 +1,4 @@
-import {ensureUniqueIds} from './helpers';
+import {ensureSequentialIds} from './helpers';
 
 export function init() {
     return function (dispatch) {
@@ -11,7 +11,7 @@ export function init() {
             if (xhr.readyState === DONE) {
                 if (xhr.status === OK) {
                     const texts = JSON.parse(xhr.responseText);
-                    texts.tree = ensureUniqueIds(texts.tree);
+                    texts.tree = ensureSequentialIds(texts.tree);
                     dispatch({ type: 'INIT', texts });
                 } else {
                     /*eslint-disable */
@@ -21,8 +21,4 @@ export function init() {
             }
         };
     };
-}
-
-export function toggleOpen(nodeId) {
-    return { type: 'TOGGLE_OPEN', nodeId };
 }

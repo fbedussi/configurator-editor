@@ -1,52 +1,58 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import NodeRow from './NodeRow';
+import Btn from './Btn';
 import NodeContainer from './NodeContainer';
+import SelectNodeType from './SelectNodeType';
+import PopulatedNode from './PopulatedNode';
 
-const Node = ({currentNode, answers, questions}) => {
-    var populatedNode;
+class Node extends Component {
+    constructor(props) {
+        super(props);
 
-    if (currentNode.questionId) {
-        populatedNode = questions.filter(question => question.id === currentNode.questionId)[0];
+        this.state = {
+            change: false
+        }
     }
 
-    if (currentNode.answerId) {
-        populatedNode = answers.filter(answer => answer.id === currentNode.answerId)[0];
-    }
+    render() {
+        const { currentNode, questions, answers } = this.props;
 
-    return <div className="node">
-    <NodeRow
-        rowName="title"
-        label="Title"
-        text={populatedNode.title}
-    />
+        var populatedNode;
 
-    <NodeRow
-        rowName="subtitle"
-        label="Subtitle"
-        text={populatedNode.subtitle}
-    />
+        if (currentNode.questionId) {
+            populatedNode = questions.filter(question => question.id === currentNode.questionId)[0];
+        }
 
-    <NodeRow
-        rowName="text"
-        label="Text"
-        text={populatedNode.text}
-    />
+        if (currentNode.answerId) {
+            populatedNode = answers.filter(answer => answer.id === currentNode.answerId)[0];
+        }
 
-    {populatedNode.images && populatedNode.images.map((imagePath, i) => <NodeRow key={`image_${i}`}rowName="image" label="Image" text={imagePath} />)}
-
-    {populatedNode.options && populatedNode.options.map((option, i) => {
-        const nextNode = currentNode[i];
-        
-        return nextNode ? <NodeContainer 
-            key={nextNode.id}
-            label={option}
-            currentNode={nextNode}
-            answers={answers}
-            questions={questions}
-        /> : null;
-    })}
-</div>;
-};
+        return <div className="node">
+            <Btn
+                onClick={() => this.setState({ change: !this.state.change })}
+                label="change"
+            />
+            {this.state.change ?
+                <div>
+                    <Btn
+                        onClick={() => this.setState({ change: false })}
+                        label="cancel"
+                    />
+                    <SelectNodeType
+                        currentNode={currentNode}
+                        questions={questions}
+                        answers={answers}
+                        onSave={() => this.setState({ change: false })}
+                    />
+                </div>
+                : <PopulatedNode
+                    currentNode={currentNode}
+                    questions={questions}
+                    answers={answers}
+                />
+            }
+        </div>;
+    };
+}
 
 export default Node;
