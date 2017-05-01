@@ -1,5 +1,6 @@
 .node {
   display: none;
+  margin-left: 2em;
 }
 
 .app > .node, .is-open > .node {

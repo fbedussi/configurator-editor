@@ -1,3 +1,5 @@
+import {ensureUniqueIds} from './helpers';
+
 export function init() {
     return function (dispatch) {
         var xhr = new XMLHttpRequest();
@@ -9,6 +11,7 @@ export function init() {
             if (xhr.readyState === DONE) {
                 if (xhr.status === OK) {
                     const texts = JSON.parse(xhr.responseText);
+                    texts.tree = ensureUniqueIds(texts.tree);
                     dispatch({ type: 'INIT', texts });
                 } else {
                     /*eslint-disable */

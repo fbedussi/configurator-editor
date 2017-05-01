@@ -1,4 +1,5 @@
-- export json
+- id check
 - delete node
 - assign new content to existing node
 - add node
+- sort nodes
