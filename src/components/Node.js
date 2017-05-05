@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import {setNode} from '../actions';
+import {getContentById} from '../helpers';
 
 import Btn from './Btn';
 import NodeContainer from './NodeContainer';
 import SelectNodeType from './SelectNodeType';
 import PopulatedNode from './PopulatedNode';
+
+const mapStateToProps = (state) => ({
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setNode: nodeData => dispatch(setNode(nodeData))
+});
 
 class Node extends Component {
     constructor(props) {
@@ -20,11 +31,11 @@ class Node extends Component {
         var populatedNode;
 
         if (currentNode.questionId) {
-            populatedNode = questions.filter(question => question.id === currentNode.questionId)[0];
+            populatedNode = getContentById(questions, currentNode.questionId);
         }
 
         if (currentNode.answerId) {
-            populatedNode = answers.filter(answer => answer.id === currentNode.answerId)[0];
+            populatedNode = getContentById(answers, currentNode.answerId);
         }
 
         return <div className="node">
@@ -42,7 +53,10 @@ class Node extends Component {
                         currentNode={currentNode}
                         questions={questions}
                         answers={answers}
-                        onSave={() => this.setState({ change: false })}
+                        onSave={nodeData => {
+                            this.setState({ change: false });
+                            this.props.setNode(nodeData)
+                        }}
                     />
                 </div>
                 : <PopulatedNode
@@ -55,4 +69,4 @@ class Node extends Component {
     };
 }
 
-export default Node;
+export default connect(mapStateToProps, mapDispatchToProps)(Node);

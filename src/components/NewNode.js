@@ -3,8 +3,10 @@ import React from 'react';
 import Btn from './Btn';
 
 const NewNode = ({options, maxLength, onSave}) => {
+    var selectedId;
+
     return <div> 
-    <select>
+    <select onChange={(e) => {selectedId = e.target.value}}>
         {options.map(option => {
             var text;
             if (option.title) {
@@ -17,10 +19,10 @@ const NewNode = ({options, maxLength, onSave}) => {
                 text = option.text;
             }
 
-            return <option key={option.id}>{text.substring(0, maxLength)}</option>;
+            return <option key={option.id} value={option.id}>{text.substring(0, maxLength)}</option>;
         })}
     </select>
-    <Btn label="save" onClick={() => onSave()}/>
+    <Btn label="save" onClick={() => onSave(selectedId)}/>
     </div>
 };
 

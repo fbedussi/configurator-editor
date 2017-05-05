@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {getContentById, getNumberOfOptions} from './helpers';
+
 import NewNode from './NewNode';
 
 class SelectNodeType extends Component {
@@ -36,12 +38,21 @@ class SelectNodeType extends Component {
             {this.state.nodeType === 'question' && <NewNode
                 options={questions}
                 maxLength={this.state.maxLength}
-                onSave={onSave}
+                onSave={(childId) => onSave({
+                    nodeId: currentNode.id, 
+                    childType: this.state.nodeType, 
+                    numberOfOptions: getNumberOfOptions(getContentById(questions, childId)),
+                    childId
+                })}
             />}
             {this.state.nodeType === 'answer' && <NewNode
                 options={answers}
                 maxLength={this.state.maxLength}                
-                onSave={onSave}                
+                onSave={(childId) => onSave({
+                    nodeId: currentNode.id, 
+                    childType: this.state.nodeType, 
+                    childId
+                })}                
             />}
         </div>;
     }
