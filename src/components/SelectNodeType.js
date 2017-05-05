@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {getContentById, getNumberOfOptions} from './helpers';
+import {getContentById, getNumberOfOptions} from '../helpers';
 
 import NewNode from './NewNode';
 

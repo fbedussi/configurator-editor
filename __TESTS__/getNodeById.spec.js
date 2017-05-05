@@ -69,4 +69,10 @@ test('getNodeById', () => {
         "answerId": 1
     });
 
+    expect(getNodeById(tree, 3)).toEqual({
+        "id": 3,
+        "questionId": null,
+        "answerId": 21
+    });
+
 });

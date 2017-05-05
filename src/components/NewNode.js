@@ -3,10 +3,12 @@ import React from 'react';
 import Btn from './Btn';
 
 const NewNode = ({options, maxLength, onSave}) => {
-    var selectedId;
+    var selectedId = options[0].id;
 
     return <div> 
-    <select onChange={(e) => {selectedId = e.target.value}}>
+    <select onChange={(e) => {
+        selectedId = parseInt(e.target.value);
+    }}>
         {options.map(option => {
             var text;
             if (option.title) {

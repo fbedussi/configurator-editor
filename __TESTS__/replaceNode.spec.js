@@ -34,7 +34,7 @@ var tree = {
 test('replaceNode', () => {
     expect(replaceNode(tree, {
         nodeId: 4,
-        nodeType: 'question',
+        childType: 'question',
         childId: 3,
         numberOfOptions: 2
     })).toEqual({
@@ -62,7 +62,7 @@ test('replaceNode', () => {
 
 expect(replaceNode(tree, {
         nodeId: 4,
-        nodeType: 'answer',
+        childType: 'answer',
         childId: 3
     })).toEqual({
         "id": 1,

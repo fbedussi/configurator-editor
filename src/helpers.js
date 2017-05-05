@@ -16,19 +16,42 @@ export function ensureSequentialIds(tree, id = 0) {
     return tree;
 }
 
-export function getNodeById(tree, id) {
-    if (tree && tree.id && tree.id === id) {
+export function getNodeById(tree, id, acc = {}) {
+    if (tree.id === id) {
         return tree;
     }
 
-    Object.keys(tree).forEach(key => {
+    return Object.keys(tree).reduce((acc, key) => {
         if (tree[key] && tree[key].id) {
-            getNodeById(tree[key]);
+            return getNodeById(tree[key], id, acc);
+        } else {
+            return acc;
         }
-    });
+    }, acc);
 }
 
 export function replaceNode(tree, nodeData) {
+    var node = getNodeById(tree, nodeData.nodeId);
+    node.questionId = nodeData.childType === 'question' ? nodeData.childId : null;
+    node.answerId = nodeData.childType === 'answer' ? nodeData.childId : null;
+    
+    Object.keys(node).forEach(key => {
+        if (isNaN(key)) {
+            return;
+        }
+
+        if (nodeData.childType === 'answer') {
+            delete node[key];
+            return;
+        }
+
+        if (parseInt(key) < nodeData.numberOfOptions) {
+            node[key] = {};
+        } else {
+            delete node[key];
+        }
+    });
+   
     return tree;
 }
 

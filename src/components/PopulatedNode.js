@@ -14,6 +14,10 @@ const PopulatedNode = ({ currentNode, questions, answers }) => {
         populatedNode = answers.filter(answer => answer.id === currentNode.answerId)[0];
     }
 
+    if (!populatedNode) {
+        return null;
+    }
+
     return <div className="populatedNode">
         <NodeRow
             rowName="title"
@@ -39,7 +43,7 @@ const PopulatedNode = ({ currentNode, questions, answers }) => {
             const nextNode = currentNode[i];
 
             return nextNode ? <NodeContainer
-                key={nextNode.id}
+                key={nextNode.id || i}
                 label={option}
                 currentNode={nextNode}
                 answers={answers}
