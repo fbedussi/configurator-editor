@@ -30,6 +30,20 @@ export function getNodeById(tree, id, acc = {}) {
     }, acc);
 }
 
+export function getMaxId(tree) {   
+    return Object.keys(tree).reduce((maxId, key) => {
+        if (key === 'id') {
+            return Math.max(maxId, tree[key]);
+        }
+
+        if (tree[key] && tree[key].id) {
+            return getMaxId(tree[key]);
+        }
+
+        return maxId;
+    }, 0);
+}
+
 export function replaceNode(tree, nodeData) {
     var node = getNodeById(tree, nodeData.nodeId);
     node.questionId = nodeData.childType === 'question' ? nodeData.childId : null;
@@ -46,7 +60,10 @@ export function replaceNode(tree, nodeData) {
         }
 
         if (parseInt(key) < nodeData.numberOfOptions) {
-            node[key] = {};
+            let id = node[key].id ? node[key].id : getMaxId(tree);
+            node[key] = {
+                id
+            };
         } else {
             delete node[key];
         }

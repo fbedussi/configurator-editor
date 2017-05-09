@@ -54,8 +54,12 @@ test('replaceNode', () => {
                 "id": 4,
                 "questionId": 3,
                 "answerId": null,
-                "0": {},
-                "1": {}
+                "0": {
+                    id: 5
+                },
+                "1": {
+                    id: 6
+                }
             }
         }
 });

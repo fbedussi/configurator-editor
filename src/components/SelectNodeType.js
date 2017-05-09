@@ -4,7 +4,7 @@ import {getContentById, getNumberOfOptions} from '../helpers';
 
 import NewNode from './NewNode';
 
-class SelectNodeType extends Component {
+export class SelectNodeType extends Component {
     constructor(props) {
         super(props);
 
@@ -27,7 +27,7 @@ class SelectNodeType extends Component {
                 <input onClick={() => this.handleChange('question')} type="radio" name="nodeType" id="questionNode" />
                 <label htmlFor="questionNode">Question</label>
                 <input onClick={() => this.handleChange('answer')} type="radio" name="nodeType" id="answerNode" />
-                <label htmlFor="questionNode">Answer</label>
+                <label htmlFor="<answer></answer>Node">Answer</label>
                 <input type="number" id="maxLength" defaultValue={this.state.maxLength}
                     onChange={(e) => {
                         this.setState({maxLength: e.target.value})
