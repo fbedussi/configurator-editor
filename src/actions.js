@@ -26,3 +26,7 @@ export function init() {
 export function setNode(nodeData) {
     return { type: 'SET_NODE', nodeData};
 }
+
+export function delNode(nodeId) {
+    
+}

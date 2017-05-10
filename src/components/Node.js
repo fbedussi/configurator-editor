@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import {setNode} from '../actions';
+import {setNode, delNode} from '../actions';
 import {getContentById} from '../helpers';
 
 import Btn from './Btn';
@@ -13,7 +13,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    setNode: nodeData => dispatch(setNode(nodeData))
+    setNode: nodeData => dispatch(setNode(nodeData)),
+    delNode: nodeId => dispatch(delNode(nodeId))
 });
 
 class Node extends Component {
@@ -42,6 +43,10 @@ class Node extends Component {
             <Btn
                 onClick={() => this.setState({ change: !this.state.change })}
                 label="change"
+            />
+            <Btn
+                onClick={() => this.props.delNode(currentNode.id)}
+                label="delete"
             />
             {this.state.change ?
                 <div>
