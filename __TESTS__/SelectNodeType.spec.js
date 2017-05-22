@@ -372,8 +372,9 @@ test('Select node type save', () => {
             answers={answers}
             setNode={setNode}
             onSave={nodeData => {
-                this.setState({ change: false });
-                this.props.setNode(nodeData)
+                //this.setState({ change: false });
+                //this.props.setNode(nodeData)
+                setNode(nodeData)
             }}
         />
     );

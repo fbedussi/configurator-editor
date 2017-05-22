@@ -18,7 +18,7 @@ export default function reducer(state = {}, action) {
         case 'DEL_NODE':
             return Object.assign({}, state, {
                 tree: delNode(state.tree, action.nodeId)
-            })
+            });
 
 		default:
 			return state;

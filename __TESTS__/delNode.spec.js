@@ -1,7 +1,7 @@
 import { delNode } from '../src/helpers';
 
 var tree = {
-        "id": 1,
+        "id": 0,
         "questionId": 1,
         "answerId": null,
         "0": {
@@ -32,8 +32,11 @@ var tree = {
 };
 
 test('delNode', () => {
+    expect(delNode(tree)).toEqual(tree);
+
+
     expect(delNode(tree, 4)).toEqual({
-        "id": 1,
+        "id": 0,
         "questionId": 1,
         "answerId": null,
         "0": {
@@ -52,7 +55,7 @@ test('delNode', () => {
     });
 
     expect(delNode(tree, 6)).toEqual({
-        "id": 1,
+        "id": 0,
         "questionId": 1,
         "answerId": null,
         "0": {
@@ -80,7 +83,7 @@ test('delNode', () => {
         }
     });
 
-    expect(delNode(tree, 1)).toEqual({
-        "id": 1
+    expect(delNode(tree, 0)).toEqual({
+        "id": 0
     });
 });

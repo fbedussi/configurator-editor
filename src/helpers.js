@@ -69,10 +69,14 @@ export function replaceNode(tree, nodeData) {
         }
     });
    
-    return tree;
+    return Object.assign({}, tree);
 }
 
 export function delNode(tree, nodeId) {
+    if (isNaN(nodeId)) {
+        return tree;
+    }
+    
     var node = getNodeById(tree, nodeId);
     
     Object.keys(node).forEach(key => {
@@ -81,7 +85,7 @@ export function delNode(tree, nodeId) {
         }
     });
     
-    return tree;
+    return Object.assign({}, tree);
 }
 
 export function getContentById(contents, id) {
