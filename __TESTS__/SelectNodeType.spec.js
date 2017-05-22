@@ -336,7 +336,7 @@ test('Select node type question', () => {
             answers={answers}
             setNode={setNode}
             onSave={nodeData => {
-                this.setState({ change: false });
+                //this.setState({ change: false });
                 this.props.setNode(nodeData)
             }}
         />
@@ -354,7 +354,7 @@ test('Select node type answer', () => {
             answers={answers}
             setNode={setNode}
             onSave={nodeData => {
-                this.setState({ change: false });
+                //this.setState({ change: false });
                 this.props.setNode(nodeData)
             }}
         />
@@ -378,6 +378,6 @@ test('Select node type save', () => {
         />
     );
     component.find('#questionNode').simulate('click');
-    const newNode = component.find('Btn').simulate('click');
+    component.find('Btn').simulate('click');
     expect(setNode).toBeCalled();
 });

@@ -28,5 +28,5 @@ export function setNode(nodeData) {
 }
 
 export function delNode(nodeId) {
-    
+    return { type: 'DEL_NODE', nodeId};
 }

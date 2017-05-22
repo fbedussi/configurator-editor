@@ -1,4 +1,4 @@
-import {replaceNode} from './helpers';
+import {replaceNode, delNode} from './helpers';
 
 export default function reducer(state = {}, action) {
 	switch (action.type) {
@@ -11,9 +11,13 @@ export default function reducer(state = {}, action) {
             });
 
         case 'SET_NODE':
-            var newTree = replaceNode(state.tree, action.nodeData);
             return Object.assign({}, state, {
-                tree: newTree
+                tree: replaceNode(state.tree, action.nodeData)
+            });
+
+        case 'DEL_NODE':
+            return Object.assign({}, state, {
+                tree: delNode(state.tree, action.nodeId)
             })
 
 		default:

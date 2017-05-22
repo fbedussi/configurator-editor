@@ -38,7 +38,7 @@ export class SelectNodeType extends Component {
             {this.state.nodeType === 'question' && <NewNode
                 options={questions}
                 maxLength={this.state.maxLength}
-                onSave={(childId) => onSave({
+                onSave={childId => onSave({
                     nodeId: currentNode.id, 
                     childType: this.state.nodeType, 
                     numberOfOptions: getNumberOfOptions(getContentById(questions, childId)),
@@ -48,7 +48,7 @@ export class SelectNodeType extends Component {
             {this.state.nodeType === 'answer' && <NewNode
                 options={answers}
                 maxLength={this.state.maxLength}                
-                onSave={(childId) => onSave({
+                onSave={childId => onSave({
                     nodeId: currentNode.id, 
                     childType: this.state.nodeType, 
                     childId

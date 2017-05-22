@@ -72,6 +72,18 @@ export function replaceNode(tree, nodeData) {
     return tree;
 }
 
+export function delNode(tree, nodeId) {
+    var node = getNodeById(tree, nodeId);
+    
+    Object.keys(node).forEach(key => {
+        if (key !== 'id') {
+            delete node[key];
+        }
+    });
+    
+    return tree;
+}
+
 export function getContentById(contents, id) {
     if (!contents.filter) {
         return {};
