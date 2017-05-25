@@ -1,34 +1,34 @@
 import { replaceNode } from '../src/helpers';
 
 var tree = {
-        "id": 1,
-        "questionId": 1,
+    "id": 1,
+    "questionId": 1,
+    "answerId": null,
+    "0": {
+        "id": 2,
+        "questionId": 2,
         "answerId": null,
         "0": {
-            "id": 2,
-            "questionId": 2,
+            "id": 3,
+            "questionId": null,
+            "answerId": 21
+        },
+        "1": {
+            "id": 4,
+            "questionId": 6,
             "answerId": null,
             "0": {
-                "id": 3,
+                "id": 5,
                 "questionId": null,
-                "answerId": 21
+                "answerId": 16
             },
             "1": {
-                "id": 4,
-                "questionId": 6,
-                "answerId": null,
-                "0": {
-                    "id": 5,
-                    "questionId": null,
-                    "answerId": 16
-                },
-                "1": {
-                    "id": 6,
-                    "questionId": null,
-                    "answerId": 1
-                }
+                "id": 6,
+                "questionId": null,
+                "answerId": 1
             }
         }
+    }
 };
 
 test('replaceNode', () => {
@@ -62,9 +62,9 @@ test('replaceNode', () => {
                 }
             }
         }
-});
+    });
 
-expect(replaceNode(tree, {
+    expect(replaceNode(tree, {
         nodeId: 4,
         childType: 'answer',
         childId: 3
@@ -87,6 +87,41 @@ expect(replaceNode(tree, {
                 "answerId": 3
             }
         }
-});
+    });
+
+    expect(replaceNode(tree, {
+        nodeId: 3,
+        childType: 'answer',
+        childId: 22
+    })).toEqual({
+        "id": 1,
+        "questionId": 1,
+        "answerId": null,
+        "0": {
+            "id": 2,
+            "questionId": 2,
+            "answerId": null,
+            "0": {
+                "id": 3,
+                "questionId": null,
+                "answerId": 22
+            },
+            "1": {
+                "id": 4,
+                "questionId": 6,
+                "answerId": null,
+                "0": {
+                    "id": 5,
+                    "questionId": null,
+                    "answerId": 16
+                },
+                "1": {
+                    "id": 6,
+                    "questionId": null,
+                    "answerId": 1
+                }
+            }
+        }
+    });
 
 });

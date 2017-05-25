@@ -45,7 +45,9 @@ export function getMaxId(tree) {
 }
 
 export function replaceNode(tree, nodeData) {
-    var node = getNodeById(tree, nodeData.nodeId);
+    var treeCopy = JSON.parse(JSON.stringify(tree));
+    var node = getNodeById(treeCopy, nodeData.nodeId);
+    
     node.questionId = nodeData.childType === 'question' ? nodeData.childId : null;
     node.answerId = nodeData.childType === 'answer' ? nodeData.childId : null;
     
@@ -60,7 +62,7 @@ export function replaceNode(tree, nodeData) {
         }
 
         if (parseInt(key) < nodeData.numberOfOptions) {
-            let id = node[key].id ? node[key].id : getMaxId(tree);
+            let id = node[key].id ? node[key].id : getMaxId(treeCopy);
             node[key] = {
                 id
             };
@@ -69,7 +71,7 @@ export function replaceNode(tree, nodeData) {
         }
     });
    
-    return Object.assign({}, tree);
+    return treeCopy;
 }
 
 export function delNode(tree, nodeId) {
@@ -77,7 +79,8 @@ export function delNode(tree, nodeId) {
         return tree;
     }
     
-    var node = getNodeById(tree, nodeId);
+    var treeCopy = JSON.parse(JSON.stringify(tree))
+    var node = getNodeById(treeCopy, nodeId);
     
     Object.keys(node).forEach(key => {
         if (key !== 'id') {
@@ -85,7 +88,7 @@ export function delNode(tree, nodeId) {
         }
     });
     
-    return Object.assign({}, tree);
+    return treeCopy;
 }
 
 export function getContentById(contents, id) {
